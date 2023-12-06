@@ -3,7 +3,7 @@
 
 import uuid
 from datetime import datetime
-"""from models import storage     -uncomment for task 5"""
+#from models import storage
 
 
 class BaseModel:
@@ -11,6 +11,7 @@ class BaseModel:
     """the class from which all  classes will inherit"""
 
     def __init__(self, *args, **kwargs):
+        from models import storage
         """construct for BaseModel
 
         Args:
@@ -18,7 +19,6 @@ class BaseModel:
             - **kwargs: artibutrary keyword arguments
             - dict of key-values arguments
         """
-
         if kwargs is not None and kwargs != {}:
             for key in kwargs:
                 if key == "created_at":
@@ -33,7 +33,7 @@ class BaseModel:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
-            #storage.new(self)  uncomment this to test task 5
+            storage.new(self)
 
     def __str__(self):
         """Returns official string representation"""
@@ -43,9 +43,9 @@ class BaseModel:
 
     def save(self):
         """updates the public instance attribute updated_at"""
-
+        from models import storage
         self.updated_at = datetime.now()
-       # storage.save()  uncomment this to test task 5
+        storage.save()
 
     def to_dict(self):
         """returns a dictionary containing all keys/values of __dict__"""
@@ -54,4 +54,5 @@ class BaseModel:
         instance_dict["__class__"] = type(self).__name__
         instance_dict["created_at"] = instance_dict["created_at"].isoformat()
         instance_dict["updated_at"] = instance_dict["updated_at"].isoformat()
+        instance_dict["name"] = getattr(self, 'name', None)
         return instance_dict

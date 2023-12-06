@@ -7,5 +7,8 @@ class City(BaseModel):
     """
     City class inherits from BaseModel.
     """
-    state_id = ""
-    name = ""
+    def __init__(self, *args, **kwargs):
+        """Constructor for City"""
+        super().__init__(*args, **kwargs)
+        self.state_id = ""
+        self.name = ""
