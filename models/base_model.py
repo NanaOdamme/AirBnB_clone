@@ -30,9 +30,11 @@ class BaseModel:
                 else:
                     self.__dict__[key] = kwargs[key]
         else:
+            self.my_number = None  # Add missing attribute
+            self.name = None  # Add missing attribute
+            self.updated_at = datetime.now()
             self.id = str(uuid.uuid4())
             self.created_at = datetime.now()
-            self.updated_at = datetime.now()
             storage.new(self)
 
     def __str__(self):
@@ -51,8 +53,7 @@ class BaseModel:
         """returns a dictionary containing all keys/values of __dict__"""
 
         instance_dict = self.__dict__.copy()
-        instance_dict["__class__"] = type(self).__name__
-        instance_dict["created_at"] = instance_dict["created_at"].isoformat()
         instance_dict["updated_at"] = instance_dict["updated_at"].isoformat()
-        instance_dict["name"] = getattr(self, 'name', None)
+        instance_dict["created_at"] = instance_dict["created_at"].isoformat()
+        instance_dict["__class__"] = type(self).__name__
         return instance_dict
