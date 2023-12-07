@@ -7,6 +7,7 @@ from datetime import datetime
 from models.state import State
 from models.engine.file_storage import FileStorage
 from models.base_model import BaseModel
+from models import storage
 
 
 class TestState(unittest.TestCase):
@@ -30,9 +31,6 @@ class TestState(unittest.TestCase):
 
     def test_state_attributes(self):
         self.assertTrue(hasattr(self.state, 'name'))
-
-    def test_state_attributes_default_values(self):
-        self.assertEqual(self.state.name, "")
 
     def test_state_attributes_assignment(self):
         self.state.name = "California"

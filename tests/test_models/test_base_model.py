@@ -64,22 +64,13 @@ class TestBaseModel(unittest.TestCase):
         b.save()
         diff = b.updated_at - date_now
         self.assertTrue(abs(diff.total_seconds()) < 0.01)
-
-    def test_str_method(self):
-        """Tests the string representation of the object."""
+   
+    def test_str(self):
+        """Tests for __str__ method."""
         b = BaseModel()
-        rex = re.compile(r"^\[(.*)\] \((.*)\) (.*)$")
-        res = rex.match(str(b))
-        self.assertIsNotNone(res)
-        self.assertEqual(res.group(1), "BaseModel")
-        self.assertEqual(res.group(2), b.id)
-        s = res.group(3)
-        s = re.sub(r"(datetime\.datetime\([^)]*\))", "'\\1'", s)
-        d = json.loads(s.replace("'", '"'))
-        d2 = b.__dict__.copy()
-        d2["created_at"] = repr(d2["created_at"])
-        d2["updated_at"] = repr(d2["updated_at"])
-        self.assertEqual(d, d2)
+        expected_str = f"[BaseModel] ({b.id}) {b.__dict__}"
+        self.assertEqual(str(b), expected_str)
+
 
     def test_save_calls_storage_save(self):
         """Tests that calling save also calls storage.save()."""
