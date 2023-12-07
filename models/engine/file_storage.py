@@ -39,7 +39,6 @@ class FileStorage:
     def save(self):
         """
         Serialize __objects to the JSON file (__file_path).
-    
         serialized_objects = {}
         for key, obj in FileStorage.__objects.items():
             serialized_objects[key] = obj.to_dict()
@@ -49,8 +48,10 @@ class FileStorage:
 
         """
         with open(FileStorage.__file_path, "w", encoding="utf-8") as File:
-            serialized_objects = {key: v.to_dict() for key, v in FileStorage.__objects.items()}
+            serialized_objects = {key: v.to_dict() for key,
+                                  v in FileStorage.__objects.items()}
             json.dump(serialized_objects, File)
+
     def classes(self):
         """Returns a dictionary of valid classes and their references."""
         classes = {
@@ -71,7 +72,7 @@ class FileStorage:
         with open(FileStorage.__file_path, "r", encoding="utf-8") as File:
             data = json.load(File)
             data = {key: self.classes()[value["__class__"]](**value)
-                        for key, value in data.items()}
+                    for key, value in data.items()}
             FileStorage.__objects = data
 
     def attributes(self):
