@@ -15,7 +15,7 @@ import os
 class TestHBNBCommand(unittest.TestCase):
 
     """Tests HBNBCommand console."""
-    
+
     def setUp(self):
         """Sets up test cases."""
         if os.path.isfile("file.json"):
