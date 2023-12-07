@@ -189,7 +189,6 @@ class HBNBCommand(cmd.Cmd):
                 setattr(storage.all()[key], attr, value)
                 storage.all()[key].save()
 
-    
     def do_count(self, arg):
         """method to count the instances of a class."""
         args = arg.split(' ')
@@ -202,8 +201,6 @@ class HBNBCommand(cmd.Cmd):
                 key for key in storage.all() if key.startswith(
                     args[0] + '.')]
             print(len(found))
-
-    
 
 
 if __name__ == '__main__':

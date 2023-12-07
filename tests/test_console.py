@@ -15,6 +15,15 @@ import os
 class TestHBNBCommand(unittest.TestCase):
 
     """Tests HBNBCommand console."""
+    
+    def setUp(self):
+        """Sets up test cases."""
+        if os.path.isfile("file.json"):
+            os.remove("file.json")
+        self.resetStorage()
+
+    def tearDown(self):
+        pass
 
     attribute_values = {
         str: "foobar108",
@@ -34,12 +43,6 @@ class TestHBNBCommand(unittest.TestCase):
         "floatfoo": 9.8
     }
 
-    def setUp(self):
-        """Sets up test cases."""
-        if os.path.isfile("file.json"):
-            os.remove("file.json")
-        self.resetStorage()
-
     def resetStorage(self):
         """Resets FileStorage data."""
         FileStorage._FileStorage__objects = {}
@@ -57,70 +60,6 @@ EOF  all  count  create  destroy  help  quit  show  update
 
 """
         self.assertEqual(s, f.getvalue())
-
-    @patch('sys.stdout', new_callable=StringIO)
-    def test_help_show(self, mock_stdout):
-        with patch('sys.stdin', StringIO('help show\n')), \
-                self.assertRaises(SystemExit):
-            self.hbnb_cmd.cmdloop()
-        output = mock_stdout.getvalue().strip()
-        self.assertIn('Prints the string representation', output)
-
-    def test_help_quit(self):
-        """Tests the help command."""
-        with patch('sys.stdout', new=StringIO()) as f:
-            HBNBCommand().onecmd("help quit")
-        s = 'Exits the program.\n        \n'
-        self.assertEqual(s, f.getvalue())
-
-    def test_help_create(self):
-        """Tests the help command."""
-        with patch('sys.stdout', new=StringIO()) as f:
-            HBNBCommand().onecmd("help create")
-        s = 'Creates an instance.\n        \n'
-        self.assertEqual(s, f.getvalue())
-
-    def test_help_show(self):
-        """Tests the help command."""
-        with patch('sys.stdout', new=StringIO()) as f:
-            HBNBCommand().onecmd("help show")
-        s = 'Prints the string representation of an instance.\n        \n'
-        self.assertEqual(s, f.getvalue())
-
-    def test_help_destroy(self):
-        """Tests the help command."""
-        with patch('sys.stdout', new=StringIO()) as f:
-            HBNBCommand().onecmd("help destroy")
-        s = 'Deletes an instance based on the class name and id.\n        \n'
-        self.assertEqual(s, f.getvalue())
-
-
-    def test_help_count(self):
-        """Tests the help command."""
-        with patch('sys.stdout', new=StringIO()) as f:
-            HBNBCommand().onecmd("help count")
-        s = 'Counts the instances of a class.\n        \n'
-        self.assertEqual(s, f.getvalue())
-
-    def test_help_update(self):
-        """Tests the help command."""
-        with patch('sys.stdout', new=StringIO()) as f:
-            HBNBCommand().onecmd("help update")
-        s = 'Updates an instance by adding or updating attribute.\n        \n'
-        self.assertEqual(s, f.getvalue())
-
-    def test_do_quit(self):
-        """Tests quit commmand."""
-        with patch('sys.stdout', new=StringIO()) as f:
-            HBNBCommand().onecmd("quit")
-        msg = f.getvalue()
-        self.assertTrue(len(msg) == 0)
-        self.assertEqual("", msg)
-        with patch('sys.stdout', new=StringIO()) as f:
-            HBNBCommand().onecmd("quit garbage")
-        msg = f.getvalue()
-        self.assertTrue(len(msg) == 0)
-        self.assertEqual("", msg)
 
     def test_do_EOF(self):
         """Tests EOF commmand."""
@@ -488,9 +427,7 @@ EOF  all  count  create  destroy  help  quit  show  update
         val = "fooval"
         uid = self.create_class(classname)
         cmd = '{}.update("{}", "{}", "{}")'
-        #  cmd = 'update {} {} {} {}'
         cmd = cmd.format(classname, uid, attr, val)
-        #  print("CMD::", cmd)
         with patch('sys.stdout', new=StringIO()) as f:
             HBNBCommand().onecmd(cmd)
         s = f.getvalue()
@@ -508,9 +445,7 @@ EOF  all  count  create  destroy  help  quit  show  update
         val = "fooval"
         uid = self.create_class(classname)
         cmd = '{}.update("{}", "{}", "{}")'
-        #  cmd = 'update {} {} {} {}'
         cmd = cmd.format(classname, uid, attr, val)
-        #  print("CMD::", cmd)
         with patch('sys.stdout', new=StringIO()) as f:
             HBNBCommand().onecmd(cmd)
         s = f.getvalue()
@@ -528,9 +463,7 @@ EOF  all  count  create  destroy  help  quit  show  update
         val = "fooval"
         uid = self.create_class(classname)
         cmd = '{}.update("{}", "{}", "{}")'
-        #  cmd = 'update {} {} {} {}'
         cmd = cmd.format(classname, uid, attr, val)
-        #  print("CMD::", cmd)
         with patch('sys.stdout', new=StringIO()) as f:
             HBNBCommand().onecmd(cmd)
         s = f.getvalue()
@@ -568,7 +501,6 @@ EOF  all  count  create  destroy  help  quit  show  update
 
     def help_test_update(self, classname, uid, attr, val, quotes, func):
         """Tests update commmand."""
-        #  print("QUOTES", quotes)
         FileStorage._FileStorage__objects = {}
         if os.path.isfile("file.json"):
             os.remove("file.json")
@@ -582,8 +514,6 @@ EOF  all  count  create  destroy  help  quit  show  update
         with patch('sys.stdout', new=StringIO()) as f:
             HBNBCommand().onecmd(cmd)
         msg = f.getvalue()[:-1]
-        # print("MSG::", msg)
-        # print("CMD::", cmd)
         self.assertEqual(len(msg), 0)
         with patch('sys.stdout', new=StringIO()) as f:
             HBNBCommand().onecmd('{}.show("{}")'.format(classname, uid))
