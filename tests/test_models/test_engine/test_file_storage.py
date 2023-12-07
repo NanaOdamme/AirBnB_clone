@@ -68,7 +68,6 @@ class TestFileStorage(unittest.TestCase):
         expected_content = {f"BaseModel.{obj.id}": obj.to_dict()}
         self.assertEqual(file_content, expected_content)
 
-   
     def test_attributes_method(self):
         # Test the attributes method returns the correct dictionary
         expected_attributes = {
