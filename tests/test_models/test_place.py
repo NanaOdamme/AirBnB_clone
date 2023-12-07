@@ -41,7 +41,6 @@ class TestPlace(unittest.TestCase):
         self.assertTrue(hasattr(self.place, 'longitude'))
         self.assertTrue(hasattr(self.place, 'amenity_ids'))
 
-
     def test_place_attributes_assignment(self):
         self.place.city_id = "123"
         self.place.user_id = "456"

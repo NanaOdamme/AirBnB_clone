@@ -64,13 +64,12 @@ class TestBaseModel(unittest.TestCase):
         b.save()
         diff = b.updated_at - date_now
         self.assertTrue(abs(diff.total_seconds()) < 0.01)
-   
+
     def test_str(self):
         """Tests for __str__ method."""
         b = BaseModel()
         expected_str = f"[BaseModel] ({b.id}) {b.__dict__}"
         self.assertEqual(str(b), expected_str)
-
 
     def test_save_calls_storage_save(self):
         """Tests that calling save also calls storage.save()."""

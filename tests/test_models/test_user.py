@@ -49,7 +49,6 @@ class TestUser(unittest.TestCase):
         self.assertEqual(self.user.password, "securepassword")
         self.assertEqual(self.user.first_name, "John")
         self.assertEqual(self.user.last_name, "Doe")
-    
     """
     def test_user_to_dict_method(self):
         user_dict = self.user.to_dict()
