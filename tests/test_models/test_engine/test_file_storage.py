@@ -17,18 +17,18 @@ from models.review import Review
 class TestFileStorage(unittest.TestCase):
 
     def setUp(self):
-        # Reset the FileStorage objects before each test
+        """ Reset the FileStorage objects before each test"""
         FileStorage._FileStorage__objects = {}
         # Create an instance of FileStorage
         self.storage = FileStorage()
 
     def tearDown(self):
-        # Remove the test file if it exists after each test
+        """ Remove the test file if it exists after each test"""
         if os.path.isfile(FileStorage._FileStorage__file_path):
             os.remove(FileStorage._FileStorage__file_path)
 
     def test_all_method(self):
-        # Test the all method returns the correct dictionary
+        """ Test the all method returns the correct dictionary"""
         self.assertEqual(self.storage.all(), {})
 
         # Add some objects to the FileStorage
@@ -48,14 +48,14 @@ class TestFileStorage(unittest.TestCase):
         self.assertEqual(self.storage.all(), expected_result)
 
     def test_new_method(self):
-        # Test the new method adds an object to the __objects dictionary
+        """Test the new method adds an object to the __objects dictionary"""
         obj = BaseModel()
         self.storage.new(obj)
         key = f"{obj.__class__.__name__}.{obj.id}"
         self.assertIn(key, self.storage.all())
 
     def test_save_method(self):
-        # Test the save method writes to the file and updates __objects
+        """Test the save method writes to the file and updates __objects"""
         obj = BaseModel()
         self.storage.new(obj)
         self.storage.save()
@@ -69,7 +69,7 @@ class TestFileStorage(unittest.TestCase):
         self.assertEqual(file_content, expected_content)
 
     def test_attributes_method(self):
-        # Test the attributes method returns the correct dictionary
+        """est the attributes method returns the correct dictionary"""
         expected_attributes = {
             "BaseModel": {"id": str, "created_at": datetime,
                           "updated_at": datetime},

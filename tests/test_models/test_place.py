@@ -10,8 +10,10 @@ from models.base_model import BaseModel
 
 
 class TestPlace(unittest.TestCase):
+    """ test cases for place """
 
     def setUp(self):
+        """ set up tests """
         self.place = Place()
 
     def tearDown(self):
@@ -26,9 +28,11 @@ class TestPlace(unittest.TestCase):
             os.remove(FileStorage._FileStorage__file_path)
 
     def test_place_inherits_from_base_model(self):
+        """ test place if it inherits from basemodel"""
         self.assertIsInstance(self.place, BaseModel)
 
     def test_place_attributes(self):
+        """ test the attributes of place"""
         self.assertTrue(hasattr(self.place, 'city_id'))
         self.assertTrue(hasattr(self.place, 'user_id'))
         self.assertTrue(hasattr(self.place, 'name'))
@@ -42,6 +46,7 @@ class TestPlace(unittest.TestCase):
         self.assertTrue(hasattr(self.place, 'amenity_ids'))
 
     def test_place_attributes_assignment(self):
+        """test attribute assignmmennts of place"""
         self.place.city_id = "123"
         self.place.user_id = "456"
         self.place.name = "Test Place"
@@ -85,6 +90,7 @@ class TestPlace(unittest.TestCase):
         self.assertIn('amenity_ids', place_dict)
     """
     def test_place_str_representation(self):
+        """ test str representation"""
         self.assertEqual(str(self.place), "[Place] ({}) {}"
                          .format(self.place.id, self.place.__dict__))
 

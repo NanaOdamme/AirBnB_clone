@@ -28,20 +28,25 @@ class TestBaseModel(unittest.TestCase):
             os.remove(FileStorage._FileStorage__file_path)
 
     def test_id_type(self):
+        """ tests the id type"""
         self.assertIsInstance(self.base_model.id, str)
 
     def test_created_at_type(self):
+        """ test case for created at type"""
         self.assertIsInstance(self.base_model.created_at, datetime)
 
     def test_updated_at_type(self):
+        """ test case for updated at type"""
         self.assertIsInstance(self.base_model.updated_at, datetime)
 
     def test_save_updates_updated_at(self):
+        """ test case for saveing updates """
         original_updated_at = self.base_model.updated_at
         self.base_model.save()
         self.assertNotEqual(original_updated_at, self.base_model.updated_at)
 
     def test_to_dict_method(self):
+        """ test case for to dict method """
         model_dict = self.base_model.to_dict()
         self.assertIsInstance(model_dict, dict)
         self.assertIn('id', model_dict)
@@ -50,6 +55,7 @@ class TestBaseModel(unittest.TestCase):
         self.assertEqual(model_dict['__class__'], 'BaseModel')
 
     def test_str_representation(self):
+        """ test case for str"""
         str_representation = str(self.base_model)
         self.assertIn('[BaseModel]', str_representation)
         self.assertIn('id', str_representation)

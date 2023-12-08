@@ -10,8 +10,10 @@ from models.base_model import BaseModel
 
 
 class TestUser(unittest.TestCase):
+    """test cases for user"""
 
     def setUp(self):
+        """ set up tests"""
         self.user = User()
 
     def tearDown(self):
@@ -26,21 +28,25 @@ class TestUser(unittest.TestCase):
             os.remove(FileStorage._FileStorage__file_path)
 
     def test_user_inherits_from_base_model(self):
+        """ test inheritance"""
         self.assertIsInstance(self.user, BaseModel)
 
     def test_user_attributes(self):
+        """ test user attributes"""
         self.assertTrue(hasattr(self.user, 'email'))
         self.assertTrue(hasattr(self.user, 'password'))
         self.assertTrue(hasattr(self.user, 'first_name'))
         self.assertTrue(hasattr(self.user, 'last_name'))
 
     def test_user_attributes_default_values(self):
+        """ test default values for user attributes """
         self.assertEqual(self.user.email, "")
         self.assertEqual(self.user.password, "")
         self.assertEqual(self.user.first_name, "")
         self.assertEqual(self.user.last_name, "")
 
     def test_user_attributes_assignment(self):
+        """ test user attr  assignment """
         self.user.email = "test@example.com"
         self.user.password = "securepassword"
         self.user.first_name = "John"
@@ -63,6 +69,7 @@ class TestUser(unittest.TestCase):
     """
 
     def test_user_str_representation(self):
+        """ test str representation """
         self.assertEqual(str(self.user), "[User] ({}) {}"
                          .format(self.user.id, self.user.__dict__))
 

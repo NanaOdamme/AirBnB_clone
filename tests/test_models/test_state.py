@@ -11,8 +11,10 @@ from models import storage
 
 
 class TestState(unittest.TestCase):
+    """test cases for state"""
 
     def setUp(self):
+        """sets up tests"""
         self.state = State()
 
     def tearDown(self):
@@ -27,16 +29,20 @@ class TestState(unittest.TestCase):
             os.remove(FileStorage._FileStorage__file_path)
 
     def test_state_inherits_from_base_model(self):
+        """test inheritance"""
         self.assertIsInstance(self.state, BaseModel)
 
     def test_state_attributes(self):
+        """test attr state"""
         self.assertTrue(hasattr(self.state, 'name'))
 
     def test_state_attributes_assignment(self):
+        """test attr assignments"""
         self.state.name = "California"
         self.assertEqual(self.state.name, "California")
 
     def test_state_to_dict_method(self):
+        """test to dict method"""
         state_dict = self.state.to_dict()
         self.assertIsInstance(state_dict, dict)
         self.assertIn('id', state_dict)
@@ -45,6 +51,7 @@ class TestState(unittest.TestCase):
         self.assertIn('name', state_dict)
 
     def test_state_str_representation(self):
+        """test str representation"""
         self.assertEqual(str(self.state), "[State] ({}) {}"
                          .format(self.state.id, self.state.__dict__))
 
