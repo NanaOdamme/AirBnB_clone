@@ -18,6 +18,7 @@ class TestHBNBCommand(unittest.TestCase):
 
     def setUp(self):
         """Sets up the test cases."""
+        self.hbnb_command = HBNBCommand()
         if os.path.isfile("file.json"):
             os.remove("file.json")
         self.resetStorage()
@@ -662,6 +663,12 @@ EOF  all  count  create  destroy  help  quit  show  update
                    "Review": Review}
         return classes
 
+    @patch('sys.stdout', new_callable=StringIO)
+    def test_do_quit(self, mock_stdout):
+        with patch('builtins.input', return_value='quit'):
+            self.hbnb_command.cmdloop()
+        output = mock_stdout.getvalue().strip()
+        self.assertIn("", output)
 
 if __name__ == "__main__":
     unittest.main()
