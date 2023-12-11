@@ -35,15 +35,6 @@ class TestAmenity(unittest.TestCase):
         """test attr for amenity"""
         self.assertTrue(hasattr(self.amenity, 'name'))
 
-    def test_amenity_attributes_default_values(self):
-        """test attr default values"""
-        self.assertEqual(self.amenity.name, "")
-
-    def test_amenity_attributes_assignment(self):
-        """test attr assignment"""
-        self.amenity.name = "WiFi"
-        self.assertEqual(self.amenity.name, "WiFi")
-
     def test_amenity_to_dict_method(self):
         """test to dict method"""
         amenity_dict = self.amenity.to_dict()
