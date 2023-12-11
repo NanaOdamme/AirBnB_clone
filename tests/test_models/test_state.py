@@ -4,6 +4,7 @@
 import unittest
 import os
 from datetime import datetime
+from models import *
 from models.state import State
 from models.engine.file_storage import FileStorage
 from models.base_model import BaseModel
